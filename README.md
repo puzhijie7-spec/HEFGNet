@@ -3,8 +3,9 @@
 Model implementation for **HEFGNet: Hierarchically Enhanced Features-Guided
 Network for Fine-Grained Food Image Segmentation**.
 
-This repository contains only the network architecture. Dataset preparation,
-training, evaluation, and trained model weights are not included.
+This repository contains the network architecture together with the training
+and evaluation code used for FoodSeg103 and UECFoodPixComplete. Dataset files
+and trained model weights are not included.
 
 ## Model components
 
@@ -60,6 +61,70 @@ model = build_hefgnet(
 
 Download the checkpoint from the
 [official ConvNeXt V2 release](https://dl.fbaipublicfiles.com/convnext/convnextv2/im22k/convnextv2_base_22k_384_ema.pt).
+
+## Dataset layout
+
+`--data-root` may point either to the dataset directory itself or to a parent
+directory containing the following folders:
+
+```text
+datasets/
+|-- FoodSeg103/
+|   |-- ImageSets/{train.txt,test.txt}
+|   `-- Images/
+|       |-- img_dir/{train,test}/*.jpg
+|       `-- ann_dir/{train,test}/*.png
+`-- UEC/
+    |-- train9000.txt
+    |-- test1000.txt
+    |-- img/all/*.jpg
+    `-- mask/*.png
+```
+
+## Training
+
+FoodSeg103 uses 104 output classes (103 food categories plus background), a
+batch size of 7, and an initial learning rate of `1.2e-5`:
+
+```bash
+python train.py \
+  --dataset foodseg103 \
+  --data-root /path/to/datasets \
+  --backbone-weights checkpoints/convnextv2_base_22k_384_ema.pt \
+  --output-dir outputs/foodseg103
+```
+
+UECFoodPixComplete uses 103 output classes, a batch size of 6, and an initial
+learning rate of `8e-6`:
+
+```bash
+python train.py \
+  --dataset uecfoodpixcomplete \
+  --data-root /path/to/datasets \
+  --backbone-weights checkpoints/convnextv2_base_22k_384_ema.pt \
+  --output-dir outputs/uec
+```
+
+Both configurations use 768 x 768 inputs, 160 epochs, AdamW with weight decay
+`0.01`, one warm-up epoch followed by a polynomial learning-rate schedule,
+mixed-precision training, and OHEM cross-entropy with ignore label `255`,
+threshold `0.7`, and `min_kept=5`. The random seed defaults to `55`.
+
+Resume training with `--resume outputs/<dataset>/last.pth`. Add
+`--deterministic` when deterministic cuDNN behavior is required.
+
+## Evaluation
+
+```bash
+python evaluate.py \
+  --dataset foodseg103 \
+  --data-root /path/to/datasets \
+  --checkpoint outputs/foodseg103/best.pth
+```
+
+The evaluator reports pixel accuracy, mean class accuracy (mAcc), and mean
+intersection over union (mIoU). It accepts both the public checkpoint naming
+scheme and checkpoints produced by the earlier experimental implementation.
 
 ## Citation
 
