@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+message: "If you use this code, please cite the HEFGNet paper."
+title: "HEFGNet: Hierarchically Enhanced Features-Guided Network for Fine-Grained Food Image Segmentation"
+type: software
+authors:
+  - family-names: Xiao
+    given-names: Zhiyong
+  - family-names: Pu
+    given-names: Zhijie
+  - family-names: Deng
+    given-names: Zhaohong
+date-released: 2026-08-24
