@@ -4,8 +4,7 @@ Model implementation for **HEFGNet: Hierarchically Enhanced Features-Guided
 Network for Fine-Grained Food Image Segmentation**.
 
 This repository contains the network architecture together with the training
-and evaluation code used for FoodSeg103 and UECFoodPixComplete. Dataset files
-and trained model weights are not included.
+and evaluation code used for FoodSeg103 and UECFoodPixComplete. 
 
 ## Model components
 
