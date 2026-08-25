@@ -117,7 +117,3 @@ The evaluator reports pixel accuracy, mean class accuracy (mAcc), and mean
 intersection over union (mIoU). It accepts both the public checkpoint naming
 scheme and checkpoints produced by the earlier experimental implementation.
 
-## Citation
-
-Please cite the HEFGNet paper if this implementation is useful in your
-research. Complete publication metadata will be added after publication.
