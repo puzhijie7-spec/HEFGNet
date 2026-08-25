@@ -83,8 +83,7 @@ datasets/
 
 ## Training
 
-FoodSeg103 uses 104 output classes (103 food categories plus background), a
-batch size of 7, and an initial learning rate of `1.2e-5`:
+Train HEFGNet on FoodSeg103:
 
 ```bash
 python train.py \
@@ -94,8 +93,7 @@ python train.py \
   --output-dir outputs/foodseg103
 ```
 
-UECFoodPixComplete uses 103 output classes, a batch size of 6, and an initial
-learning rate of `8e-6`:
+Train HEFGNet on UECFoodPixComplete:
 
 ```bash
 python train.py \
@@ -105,14 +103,7 @@ python train.py \
   --output-dir outputs/uec
 ```
 
-Both configurations use 768 x 768 inputs, 160 epochs, AdamW with weight decay
-`0.01`, one warm-up epoch followed by a polynomial learning-rate schedule,
-mixed-precision training, and OHEM cross-entropy with ignore label `255`,
-threshold `0.7`, and `min_kept=20`. The value can be overridden with
-`--ohem-min-kept`. The random seed defaults to `55`.
-
-Resume training with `--resume outputs/<dataset>/last.pth`. Add
-`--deterministic` when deterministic cuDNN behavior is required.
+Run `python train.py --help` to view the available training options.
 
 ## Evaluation
 
