@@ -20,7 +20,7 @@ class OHEMCrossEntropy(nn.Module):
         self,
         ignore_index: int = 255,
         threshold: float = 0.7,
-        min_kept: int = 5,
+        min_kept: int = 20,
     ) -> None:
         super().__init__()
         self.ignore_index = ignore_index

@@ -51,6 +51,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--weight-decay", type=float, default=1e-2)
     parser.add_argument("--warmup-epochs", type=int, default=1)
     parser.add_argument("--poly-power", type=float, default=0.9)
+    parser.add_argument("--ohem-min-kept", type=int, default=20)
     parser.add_argument("--eval-every", type=int, default=1)
     parser.add_argument("--num-workers", type=int, default=8)
     parser.add_argument("--seed", type=int, default=55)
@@ -139,7 +140,7 @@ def main(args: argparse.Namespace) -> None:
     )
     scaler = torch.cuda.amp.GradScaler(enabled=use_amp) if use_amp else None
     loss_function = OHEMCrossEntropy(
-        ignore_index=255, threshold=0.7, min_kept=5
+        ignore_index=255, threshold=0.7, min_kept=args.ohem_min_kept
     )
 
     start_epoch = 0
