@@ -108,7 +108,7 @@ python train.py \
 Both configurations use 768 x 768 inputs, 160 epochs, AdamW with weight decay
 `0.01`, one warm-up epoch followed by a polynomial learning-rate schedule,
 mixed-precision training, and OHEM cross-entropy with ignore label `255`,
-threshold `0.7`, and `min_kept=5`. The random seed defaults to `55`.
+threshold `0.7`, and `min_kept=20`. The random seed defaults to `55`.
 
 Resume training with `--resume outputs/<dataset>/last.pth`. Add
 `--deterministic` when deterministic cuDNN behavior is required.
